@@ -1,3 +1,4 @@
+import timer from '@/lib/timer';
 import { LoginSchema } from '@/schemas';
 import { z } from 'zod';
 
@@ -10,7 +11,9 @@ export const login = async (
   const password = formData.get('password') as string;
   const validatedFields = LoginSchema.safeParse({ email, password });
 
-  console.log(validatedFields);
+  await timer(2000);
+
+  // console.log(validatedFields);
   if (!validatedFields.success)
     return {
       error: 'Invalid email or password',

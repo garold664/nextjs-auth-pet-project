@@ -1,5 +1,6 @@
 'use client';
 import { login } from '@/actions/login';
+import FormSubmit from '@/components/FormSubmit';
 import React from 'react';
 import { useFormState } from 'react-dom';
 
@@ -14,7 +15,7 @@ export default function LoginPage() {
       <input type="email" name="email" id="email" />
       <label htmlFor="password">Password</label>
       <input type="password" name="password" id="password" />
-      <button type="submit">Login</button>
+      <FormSubmit />
       {state.error && (
         <ul className="bg-red-500/15 text-red-500 ">
           <li key={state.error}>{state.error}</li>
