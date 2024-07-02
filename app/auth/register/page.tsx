@@ -1,12 +1,12 @@
 'use client';
-import { login } from '@/actions/login';
+import { register } from '@/actions/register';
 import FormSubmit from '@/components/FormSubmit';
 import Link from 'next/link';
 import React from 'react';
 import { useFormState } from 'react-dom';
 
-export default function LoginPage() {
-  const [state, formAction] = useFormState(login, {
+export default function RegisterPage() {
+  const [state, formAction] = useFormState(register, {
     error: '',
     success: '',
   });
@@ -19,6 +19,13 @@ export default function LoginPage() {
         id="email"
         className="p-2 rounded-sm ring-2 text-black"
       />
+      <label htmlFor="name">Name</label>
+      <input
+        type="text"
+        name="name"
+        id="name"
+        className="p-2 rounded-sm ring-2 text-black"
+      />
       <label htmlFor="password">Password</label>
       <input
         type="password"
@@ -26,8 +33,8 @@ export default function LoginPage() {
         id="password"
         className="p-2 rounded-sm text-black"
       />
-      <FormSubmit>Login</FormSubmit>
-      <Link href="/auth/register">Register</Link>
+      <FormSubmit>Create an account</FormSubmit>
+      <Link href="/auth/login">Login</Link>
       {state.error && (
         <ul className="bg-red-500/15 text-red-500  p-2 mt-4 rounded-md">
           <li key={state.error}> ⚠️{state.error}</li>

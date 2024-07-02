@@ -1,7 +1,11 @@
 import React from 'react';
 import { useFormStatus } from 'react-dom';
 
-export default function FormSubmit() {
+export default function FormSubmit({
+  children,
+}: {
+  children: React.ReactNode;
+}) {
   const status = useFormStatus();
 
   if (status.pending) {
@@ -17,7 +21,7 @@ export default function FormSubmit() {
   return (
     <>
       <button className="bg-blue-800 p-2 rounded-md shadow-lg shadow-blue-500">
-        Login
+        {children}
       </button>
     </>
   );
