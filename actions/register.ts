@@ -1,4 +1,5 @@
 'use server';
+import { getUserByEmail } from '@/data/user';
 import { db } from '@/lib/db';
 import timer from '@/lib/timer';
 import { RegisterSchema } from '@/schemas';
@@ -22,15 +23,10 @@ export const register = async (
       error: 'Invalid name, email or password',
       success: '',
     };
-  console.log('first');
 
   const hashedPassword = await bcrypt.hash(password, 10);
 
-  const existingUser = await db.user.findUnique({
-    where: {
-      email: email,
-    },
-  });
+  const existingUser = await getUserByEmail(email);
 
   if (existingUser) {
     return {
