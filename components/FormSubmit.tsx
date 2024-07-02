@@ -6,14 +6,19 @@ export default function FormSubmit() {
 
   if (status.pending) {
     return (
-      <button disabled className="bg-slate-300/10 text-slate-300 ">
+      <button
+        disabled
+        className="p-2 rounded-md shadow-lg bg-slate-200/10 text-slate-300 cursor-not-allowed"
+      >
         Loading...
       </button>
     );
   }
   return (
     <>
-      <button>Login</button>
+      <button className="bg-blue-800 p-2 rounded-md shadow-lg shadow-blue-500">
+        Login
+      </button>
     </>
   );
 }
