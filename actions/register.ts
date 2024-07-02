@@ -1,5 +1,8 @@
+'use server';
+import { db } from '@/lib/db';
 import timer from '@/lib/timer';
-import { LoginSchema, RegisterSchema } from '@/schemas';
+import { RegisterSchema } from '@/schemas';
+import bcrypt from 'bcryptjs';
 import { z } from 'zod';
 
 export const register = async (
@@ -12,14 +15,38 @@ export const register = async (
   const name = formData.get('name') as string;
   const validatedFields = RegisterSchema.safeParse({ email, password, name });
 
-  await timer(2000);
+  // await timer(2000);
 
-  // console.log(validatedFields);
   if (!validatedFields.success)
     return {
       error: 'Invalid name, email or password',
       success: '',
     };
+  console.log('first');
+
+  const hashedPassword = await bcrypt.hash(password, 10);
+
+  const existingUser = await db.user.findUnique({
+    where: {
+      email: email,
+    },
+  });
+
+  if (existingUser) {
+    return {
+      error: `User with email ${email} already exists`,
+      success: '',
+    };
+  }
+
+  await db.user.create({
+    data: {
+      email: email,
+      name: name,
+      password: hashedPassword,
+    },
+  });
+
   return {
     error: '',
     success: 'Account successfully created!',

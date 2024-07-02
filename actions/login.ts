@@ -1,3 +1,4 @@
+'use server';
 import timer from '@/lib/timer';
 import { LoginSchema } from '@/schemas';
 import { z } from 'zod';
