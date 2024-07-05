@@ -1,12 +1,19 @@
+'use client';
 import React from 'react';
-import { auth } from '@/auth';
+import { Button } from '@/components/ui/button';
+import { signOut } from 'next-auth/react';
 
-export default async function SettingsPage() {
-  const session = await auth();
+function logOut() {
+  signOut();
+}
+
+export default function SettingsPage() {
   return (
     <div>
       <h1>SettingsPage</h1>
-      <div>{JSON.stringify(session, null, 2)}</div>
+      <Button onClick={logOut} variant={'link'}>
+        Sign out
+      </Button>
     </div>
   );
 }
