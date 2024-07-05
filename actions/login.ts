@@ -4,6 +4,7 @@ import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 import { LoginSchema } from '@/schemas';
 import { signIn } from '@/auth';
 import { z } from 'zod';
+import { AuthError } from 'next-auth';
 
 export const login = async (
   _prevState: { error: string; success: string },
@@ -33,7 +34,25 @@ export const login = async (
       // TODO: implement callbackUrl
       // redirectTo: callbackUrl || DEFAULT_LOGIN_REDIRECT,
     });
-  } catch (error) {}
+  } catch (error) {
+    if (error instanceof AuthError) {
+      console.log(error);
+      switch (error.type) {
+        case 'CredentialsSignin':
+          return {
+            error: 'Invalid email or password',
+            success: '',
+          };
+        default:
+          return {
+            error: 'Something went wrong',
+            success: '',
+          };
+      }
+
+      throw error;
+    }
+  }
   // return {
   //   error: '',
   //   success: 'Email successfully sent',
