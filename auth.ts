@@ -6,9 +6,18 @@ import { PrismaAdapter } from '@auth/prisma-adapter';
 import { db } from './lib/db';
 
 import authConfig from './auth.config';
+import { DEFAULT_LOGIN_REDIRECT } from './routes';
 
 export const { auth, handlers, signIn, signOut } = NextAuth({
   adapter: PrismaAdapter(db),
   session: { strategy: 'jwt' },
+  callbacks: {
+    async jwt({ token }) {
+      return token;
+    },
+    async redirect({ url, baseUrl }) {
+      return DEFAULT_LOGIN_REDIRECT;
+    },
+  },
   ...authConfig,
 });
