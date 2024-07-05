@@ -30,12 +30,12 @@ export default function LoginPage() {
       />
       <FormSubmit>Login</FormSubmit>
       <Link href="/auth/register">Register</Link>
-      {state.error && (
+      {state?.error && (
         <ul className="bg-red-500/15 text-red-500  p-2 mt-4 rounded-md">
           <li key={state.error}> ⚠️{state.error}</li>
         </ul>
       )}
-      {state.success && (
+      {state?.success && (
         <ul className="bg-emerald-300/15 text-emerald-300 p-2 mt-4 rounded-md">
           <li key={state.success}>✅ {state.success}</li>
         </ul>

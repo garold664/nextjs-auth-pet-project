@@ -2,7 +2,7 @@
 import timer from '@/lib/timer';
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 import { LoginSchema } from '@/schemas';
-import { signIn } from 'next-auth/react';
+import { signIn } from '@/auth';
 import { z } from 'zod';
 
 export const login = async (
@@ -26,7 +26,7 @@ export const login = async (
 
   const { email, password } = validatedFields.data;
   try {
-    await signIn('', {
+    await signIn('credentials', {
       email,
       password,
       redirectTo: DEFAULT_LOGIN_REDIRECT,
