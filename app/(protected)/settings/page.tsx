@@ -1,19 +1,20 @@
-'use client';
-import React from 'react';
 import { Button } from '@/components/ui/button';
-import { signOut } from 'next-auth/react';
+import { signOut } from '@/auth';
 
-function logOut() {
-  signOut();
+async function handleSignOut() {
+  'use server';
+  await signOut();
 }
 
-export default function SettingsPage() {
+export default async function SettingsPage() {
   return (
     <div>
       <h1>SettingsPage</h1>
-      <Button onClick={logOut} variant={'link'}>
-        Sign out
-      </Button>
+      <form action={handleSignOut}>
+        <Button type="submit" variant={'link'}>
+          Sign out
+        </Button>
+      </form>
     </div>
   );
 }
