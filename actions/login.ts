@@ -3,7 +3,7 @@ import timer from '@/lib/timer';
 import { DEFAULT_LOGIN_REDIRECT } from '@/routes';
 import { LoginSchema } from '@/schemas';
 import { signIn } from '@/auth';
-import { z } from 'zod';
+// import { z } from 'zod';
 import { AuthError } from 'next-auth';
 
 export const login = async (
@@ -49,7 +49,6 @@ export const login = async (
             success: '',
           };
       }
-
       throw error;
     }
   }
