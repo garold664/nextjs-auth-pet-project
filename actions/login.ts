@@ -8,11 +8,12 @@ export const login = async (
   formData: FormData
   // values: z.infer<typeof LoginSchema>
 ) => {
-  const email = formData.get('email') as string;
-  const password = formData.get('password') as string;
-  const validatedFields = LoginSchema.safeParse({ email, password });
+  const validatedFields = LoginSchema.safeParse({
+    email: formData.get('email'),
+    password: formData.get('password'),
+  });
 
-  await timer(2000);
+  // await timer(2000);
 
   // console.log(validatedFields);
   if (!validatedFields.success)

@@ -11,10 +11,11 @@ export const register = async (
   formData: FormData
   // values: z.infer<typeof LoginSchema>
 ) => {
-  const email = formData.get('email') as string;
-  const password = formData.get('password') as string;
-  const name = formData.get('name') as string;
-  const validatedFields = RegisterSchema.safeParse({ email, password, name });
+  const validatedFields = RegisterSchema.safeParse({
+    email: formData.get('email'),
+    password: formData.get('password'),
+    name: formData.get('name'),
+  });
 
   // await timer(2000);
 
@@ -24,21 +25,21 @@ export const register = async (
       success: '',
     };
 
-  const hashedPassword = await bcrypt.hash(password, 10);
+  const hashedPassword = await bcrypt.hash(validatedFields.data.password, 10);
 
-  const existingUser = await getUserByEmail(email);
+  const existingUser = await getUserByEmail(validatedFields.data.email);
 
   if (existingUser) {
     return {
-      error: `User with email ${email} already exists`,
+      error: `User with email ${validatedFields.data.email} already exists`,
       success: '',
     };
   }
 
   await db.user.create({
     data: {
-      email: email,
-      name: name,
+      email: validatedFields.data.email,
+      name: validatedFields.data.name,
       password: hashedPassword,
     },
   });
