@@ -5,6 +5,8 @@ import Link from 'next/link';
 import React from 'react';
 import { useFormState } from 'react-dom';
 
+import { auth } from '@/auth';
+
 export default function LoginPage() {
   const [state, formAction] = useFormState(login, {
     error: '',
